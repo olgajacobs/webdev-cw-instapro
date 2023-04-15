@@ -1,4 +1,4 @@
-import { getPosts } from "./api.js";
+import { getPosts, getUserPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -9,6 +9,7 @@ import {
   USER_POSTS_PAGE,
 } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
+import { renderUserPostsPageComponent } from "./components/user-posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
 import {
   getUserFromLocalStorage,
@@ -67,18 +68,29 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === USER_POSTS_PAGE) {
+      page = LOADING_PAGE;
+      renderApp();
+
+      return getUserPosts({ token: getToken() })
+      .then((userPosts) => {
+        page = USER_POSTS_PAGE;
+        posts = userPosts;
+        return renderApp();
+      })
+      .catch((error) => {
+        console.error(error);
+        goToPage(USER_POSTS_PAGE);
+      });
+    }
       // TODO: реализовать получение постов юзера из API
-      console.log("Открываю страницу пользователя: ", data.userId);
-      page = USER_POSTS_PAGE;
-      posts = [];
-      return renderApp();
+     // console.log("Открываю страницу пользователя: ", data.userId);
+      
+      //posts = [];
+      //return renderApp();
     }
 
     page = newPage;
-    renderApp();
-
-    return;
-  }
+    renderApp()
 
   throw new Error("страницы не существует");
 };
@@ -125,8 +137,11 @@ const renderApp = () => {
 
   if (page === USER_POSTS_PAGE) {
     // TODO: реализовать страницу фотографию пользвателя
-    appEl.innerHTML = "Здесь будет страница фотографий пользователя";
-    return;
+   // appEl.innerHTML = "Здесь будет страница фотографий пользователя";
+    return renderUserPostsPageComponent({
+      appEl,
+      userID
+    });
   }
 };
 
