@@ -1,3 +1,10 @@
+import { uploadPost } from "../api.js";
+import { getToken } from "../index.js";
+import { renderHeaderComponent } from "./header-component.js";
+import { renderUploadImageComponent } from "./upload-image-component.js";
+
+
+
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
   const render = () => {
     // TODO: Реализовать страницу добавления поста
@@ -29,11 +36,21 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
     appEl.innerHTML = appHtml;
 
+        // Формирование шапки страницы
+        renderHeaderComponent({ element: document.querySelector(".header-container"), });
+        // Обработка выбора изображения поста
+        renderUploadImageComponent({
+          element: document.querySelector(".upload-image-container"),
+          onImageUrlChange: (newImageUrl) => { imageUrl = newImageUrl; }
+        });
+
     document.getElementById("add-button").addEventListener("click", () => {
-      onAddPostClick({
-        description: "Описание картинки",
-        imageUrl: "https://image.png",
+      uploadPost({
+        token: getToken(),
+        description: document.getElementById("input_description").value,
+        imageUrl: imageUrl,
       });
+     
     });
   };
 

@@ -9,7 +9,6 @@ import {
   USER_POSTS_PAGE,
 } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
-import { renderUserPostsPageComponent } from "./components/user-posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
 import {
   getUserFromLocalStorage,
@@ -21,7 +20,7 @@ export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
 
-const getToken = () => {
+export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : undefined;
   return token;
 };
@@ -71,11 +70,11 @@ export const goToPage = (newPage, data) => {
       page = LOADING_PAGE;
       renderApp();
 
-      return getUserPosts({ token: getToken() })
+      return getUserPosts({ token: getToken(), id: data.userID })
       .then((userPosts) => {
         page = USER_POSTS_PAGE;
-        posts = userPosts;
-        return renderApp();
+        posts = newPosts;
+        renderApp();
       })
       .catch((error) => {
         console.error(error);
@@ -138,10 +137,9 @@ const renderApp = () => {
   if (page === USER_POSTS_PAGE) {
     // TODO: реализовать страницу фотографию пользвателя
    // appEl.innerHTML = "Здесь будет страница фотографий пользователя";
-    return renderUserPostsPageComponent({
-      appEl,
-      userID
-    });
+   return renderPostsPageComponent({
+    appEl,
+  });
   }
 };
 
