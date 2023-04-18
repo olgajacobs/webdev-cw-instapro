@@ -1,6 +1,7 @@
 import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
+import { formatDistanceToNow } from "date-fns"
 
 export function renderPostsPageComponent({ appEl }) {
   // TODO: реализовать рендер постов из api
@@ -39,7 +40,7 @@ return ` <li class="post">
           ${post.description}
         </p>
         <p class="post-date">
-          19 минут назад
+        ${formatDistanceToNow(new Date(post.createdAt))} <span>ago</span>
         </p>
       </li>`
 }) + `             
