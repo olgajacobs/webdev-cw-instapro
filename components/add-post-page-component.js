@@ -47,15 +47,26 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
           onImageUrlChange: (newImageUrl) => { imageUrl = newImageUrl; }
         });
 
+    // Обработка клика на кнопке "Добавить" 
     document.getElementById("add-button").addEventListener("click", () => {
+      // Проверка заполнения полей
+      const normalizedDescription = document.getElementById("input_description").value.replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+
+      if (normalizedDescription === "") {
+        alert("Введите описание фотографии");
+        return;
+      }
+      if (imageUrl === "") {
+        alert("Выберите фотографию");
+        return;
+      }
+
       uploadPost({
         token: getToken(),
-        description: document.getElementById("input_description").value,
-        imageUrl: imageUrl,
+        description: normalizedDescription,
+        imageUrl:imageUrl,
       });
-
       onAddPostClick();
-     
     });
   };
 
