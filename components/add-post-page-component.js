@@ -1,11 +1,14 @@
 import { uploadPost } from "../api.js";
 import { getToken } from "../index.js";
+import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
-
+let imageUrl = "";
 
 export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
+
+
   const render = () => {
     // TODO: Реализовать страницу добавления поста
     const appHtml = `
@@ -50,9 +53,11 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
         description: document.getElementById("input_description").value,
         imageUrl: imageUrl,
       });
+
+      onAddPostClick();
      
     });
   };
 
-  render();
+  render(); 
 }

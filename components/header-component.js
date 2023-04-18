@@ -14,11 +14,10 @@ export function renderHeaderComponent({ element }) {
       </button>
       ${
         user
-          ? `<div><div class="user_avatar">${user.imageURL}</div>
-          <button title="${user.name}" class="header-button logout-button">Выйти</button></div>`
+          ? `<img src=${user.imageUrl} class="post-header__user-image logout-button">`
           : ""
       }  
-      </button>
+      
   </div>
   
 `;

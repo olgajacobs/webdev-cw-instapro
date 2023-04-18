@@ -201,3 +201,11 @@
   width: 100%;
   text-align: center;
 }
+
+@media (max-width: 500px) {
+
+  .post-image-container {
+    height: unset;
+    max-height: 500px;
+  }
+}
