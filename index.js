@@ -115,6 +115,7 @@ export const goToPage = (newPage, data) => {
       return deletePost({ token: getToken(), id: data.postId})
         .then((newPosts) => {
               page = POSTS_PAGE;
+              posts = newPosts;
               renderApp();
           })
           .catch((error) => {

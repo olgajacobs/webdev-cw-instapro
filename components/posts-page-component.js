@@ -21,7 +21,7 @@ return ` <li class="post">
             <div class="post-header-user"><img src=${post.user.imageUrl} class="post-header__user-image">
             <p class="post-header__user-name">${post.user.name}</p>
             </div>
-            <div><img class="delete-post-button" id="delete-post" src="/assets/images/trash-can-solid.svg">
+            <div><img class="trash-button" data-delete-id="${post.id}" src="/assets/images/trash-can-solid.svg">
             </div>
         </div>
         <div class="post-image-container">
@@ -79,7 +79,7 @@ return ` <li class="post">
   }
 // Обработка клика по кнопке удалить пост
 
-  for (let deleteEl of document.querySelectorAll(".delete-button")) {
+  for (let deleteEl of document.querySelectorAll(".trash-button")) {
     let del = deleteEl.dataset.postId;
     deleteEl.addEventListener("click", () => {
       if (!getToken()) {
@@ -87,7 +87,7 @@ return ` <li class="post">
       return;
       }
         goToPage(DELETE_PAGE, {
-        postId: deleteEl.dataset.postId,
+        postId: deleteEl.dataset.deleteId,
       });
     });
   }

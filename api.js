@@ -83,7 +83,6 @@ export function uploadPost({ token, description, imageUrl }) {
     }),
   }).then((response) => {
     if (response.status === 201) {
-      document.getElementById("add-button").disabled = true;
       return response.json();
     } else if (response.status === 401) {
       console.log("Ошибка авторизации");
