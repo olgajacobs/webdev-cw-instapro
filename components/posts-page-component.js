@@ -21,7 +21,7 @@ return ` <li class="post">
             <div class="post-header-user"><img src=${post.user.imageUrl} class="post-header__user-image">
             <p class="post-header__user-name">${post.user.name}</p>
             </div>
-            <div><img class="delete-post-button" id="delete-post" src="/assets/images/trash-can-solid.svg">
+            <div class="trash-button" data-delete-id="${post.id}" ><img class="delete-post-button"  src="/assets/images/trash-can-solid.svg">
             </div>
         </div>
         <div class="post-image-container">
@@ -79,15 +79,15 @@ return ` <li class="post">
   }
 // Обработка клика по кнопке удалить пост
 
-  for (let deleteEl of document.querySelectorAll(".delete-button")) {
-    let del = deleteEl.dataset.postId;
+  for (let deleteEl of document.querySelectorAll(".trash-button")) {
+    let del = deleteEl.dataset.deleteId;
     deleteEl.addEventListener("click", () => {
       if (!getToken()) {
       alert("Удалять посты могут только авторизованные пользователи!");
       return;
       }
         goToPage(DELETE_PAGE, {
-        postId: deleteEl.dataset.postId,
+        postId: deleteEl.dataset.deleteId,
       });
     });
   }

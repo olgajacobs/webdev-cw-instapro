@@ -110,11 +110,12 @@ export const goToPage = (newPage, data) => {
 
     if (newPage === DELETE_PAGE) {
 
-    const postIndex = posts.findIndex(post => post.id === data.postId);
+    // const postIndex = posts.findIndex(post => post.id === data.postId);
     
       return deletePost({ token: getToken(), id: data.postId})
         .then((newPosts) => {
               page = POSTS_PAGE;
+              posts = newPosts;
               renderApp();
           })
           .catch((error) => {
