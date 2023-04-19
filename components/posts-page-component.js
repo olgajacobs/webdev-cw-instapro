@@ -1,4 +1,4 @@
-import { USER_POSTS_PAGE } from "../routes.js";
+import { USER_POSTS_PAGE, CHANGE_LIKE_PAGE, DELETE_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { posts, goToPage, getToken } from "../index.js";
 import { formatDistanceToNow } from "date-fns"
@@ -64,4 +64,35 @@ return ` <li class="post">
       });
     });
   }
+
+  for (let likeEl of document.querySelectorAll(".like-button")) {
+    let a = likeEl.dataset.postId;
+    likeEl.addEventListener("click", () => {
+      if (!getToken()) {
+      alert("Лайкать посты могут только авторизованные пользователи!");
+      return;
+      }
+        goToPage(CHANGE_LIKE_PAGE, {
+        postId: likeEl.dataset.postId,
+      });
+    });
+  }
+// Обработка клика по кнопке удалить пост
+
+  for (let deleteEl of document.querySelectorAll(".delete-button")) {
+    let del = deleteEl.dataset.postId;
+    deleteEl.addEventListener("click", () => {
+      if (!getToken()) {
+      alert("Удалять посты могут только авторизованные пользователи!");
+      return;
+      }
+        goToPage(DELETE_PAGE, {
+        postId: deleteEl.dataset.postId,
+      });
+    });
+  }
+
 }
+
+
+

@@ -69,15 +69,6 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       onAddPostClick();
     });
 
-
-// Обработка клика по кнопке удалить пост
-
-  document.getElementById("delete-post").addEventListener("click", () => {
-   
-  const id = post.id;
-  deletePost(token, id);
-            
-  })
   };
  
 

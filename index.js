@@ -1,4 +1,4 @@
-import { getPosts} from "./api.js";
+import { getPosts, deletePost, changeLike} from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
@@ -7,6 +7,8 @@ import {
   LOADING_PAGE,
   POSTS_PAGE,
   USER_POSTS_PAGE,
+  CHANGE_LIKE_PAGE,
+  DELETE_PAGE
 } from "./routes.js";
 import { renderPostsPageComponent } from "./components/posts-page-component.js";
 import { renderLoadingPageComponent } from "./components/loading-page-component.js";
@@ -42,6 +44,8 @@ export const goToPage = (newPage, data) => {
       ADD_POSTS_PAGE,
       USER_POSTS_PAGE,
       LOADING_PAGE,
+      CHANGE_LIKE_PAGE,
+      DELETE_PAGE
     ].includes(newPage)
   ) {
     if (newPage === ADD_POSTS_PAGE) {
@@ -71,25 +75,59 @@ export const goToPage = (newPage, data) => {
       renderApp();
 
       return getPosts({ token: getToken(), id: data.userID })
-      .then(() => {
+      .then((newPosts) => {
         page = USER_POSTS_PAGE;
         posts = newPosts;
         renderApp();
       })
       .catch((error) => {
         console.error(error);
-        goToPage(USER_POSTS_PAGE);
+        goToPage(POSTS_PAGE);
       });
     }
-      // TODO: реализовать получение постов юзера из API
-     // console.log("Открываю страницу пользователя: ", data.userId);
-      
-      //posts = [];
-      //return renderApp();
+
+    if (newPage === CHANGE_LIKE_PAGE) {
+      // Изменение лайка текущего поста
+      // console.log("Открываю страницу пользователя: ", data.postId);
+
+      // page = LOADING_PAGE;
+      // renderApp();
+      //Получаем индекс текущего поста
+      const currentPostIndex = posts.findIndex(post => post.id === data.postId);
+
+      return changeLike({ token: getToken(), id: data.postId, isLike: posts[currentPostIndex].isLiked })
+        .then((newPosts) => {
+          page = POSTS_PAGE;
+          posts[currentPostIndex].likes = newPosts.likes;
+          posts[currentPostIndex].isLiked = !posts[currentPostIndex].isLiked;
+          renderApp();
+        })
+        .catch((error) => {
+          console.log(error);
+          goToPage(POSTS_PAGE);
+        });
+      } 
+
+    if (newPage === DELETE_PAGE) {
+
+    const postIndex = posts.findIndex(post => post.id === data.postId);
+    
+      return deletePost({ token: getToken(), id: data.postId})
+        .then((newPosts) => {
+              page = POSTS_PAGE;
+              renderApp();
+          })
+          .catch((error) => {
+              console.log(error);
+            goToPage(POSTS_PAGE);
+         });
     }
 
     page = newPage;
-    renderApp()
+    renderApp();
+
+    return;
+  }
 
   throw new Error("страницы не существует");
 };

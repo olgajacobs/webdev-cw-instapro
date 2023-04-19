@@ -113,3 +113,25 @@ export function deletePost({ token, id }) {
       }
     })
 }
+
+
+export function changeLike({ token, id = "",isLike }) {
+  //Ставим-снимаем лайк
+  const a=postsHost + "/" +id+ (isLike? "/dislike" : "/like");
+  return fetch(postsHost + "/"+ id+ (isLike? "/dislike" : "/like"), {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        throw new Error("Нет авторизации");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      return data.post;
+    });
+}
