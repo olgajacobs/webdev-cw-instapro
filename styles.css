@@ -57,8 +57,17 @@
   align-items: center;
   margin-bottom: 10px;
   cursor: pointer;
+  justify-content: space-between;
 }
 
+.post-header-user {
+  display: flex;
+  align-items: center;
+}
+
+.delete-post-button {
+  height: 30px;
+}
 .post-header__user-image {
   width: 40px;
   height: 40px;

@@ -1,6 +1,6 @@
-import { uploadPost } from "../api.js";
+import { uploadPost, deletePost } from "../api.js";
 import { getToken } from "../index.js";
-import { USER_POSTS_PAGE } from "../routes.js";
+import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
@@ -68,7 +68,20 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
       });
       onAddPostClick();
     });
+
+
+// Обработка клика по кнопке удалить пост
+
+  document.getElementById("delete-post").addEventListener("click", () => {
+   
+  const id = post.id;
+  deletePost(token, id);
+            
+  })
   };
+ 
 
   render(); 
 }
+
+

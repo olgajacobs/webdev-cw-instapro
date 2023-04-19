@@ -18,8 +18,11 @@ export function renderPostsPageComponent({ appEl }) {
 posts.map((post, id) => {
 return ` <li class="post">
         <div class="post-header" data-user-id="${post.user.id}">
-            <img src=${post.user.imageUrl} class="post-header__user-image">
+            <div class="post-header-user"><img src=${post.user.imageUrl} class="post-header__user-image">
             <p class="post-header__user-name">${post.user.name}</p>
+            </div>
+            <div><img class="delete-post-button" id="delete-post" src="/assets/images/trash-can-solid.svg">
+            </div>
         </div>
         <div class="post-image-container">
           <img class="post-image" src=${post.imageUrl}>
@@ -43,7 +46,8 @@ return ` <li class="post">
         ${formatDistanceToNow(new Date(post.createdAt))} <span>ago</span>
         </p>
       </li>`
-}) + `             
+})
+.join(" ") + `             
     </ul>
   </div>`;
 

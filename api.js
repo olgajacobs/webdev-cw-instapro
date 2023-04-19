@@ -94,3 +94,22 @@ export function uploadPost({ token, description, imageUrl }) {
     }
   });
 }
+
+// удалить пост
+
+export function deletePost({ token, id }) {
+  return fetch(postsHost + "/" + id, {
+    method: "DELETE",
+    headers: {
+      Authorization: token,
+    },
+  }).then((response) => {
+    if (response.status === 200) {
+      // Успешное удаление записи
+      return response.json();
+    }
+    else if (response.status === 401) {
+        throw new Error("Нет авторизации");
+      }
+    })
+}
