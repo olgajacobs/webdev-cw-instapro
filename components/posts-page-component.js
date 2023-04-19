@@ -66,7 +66,7 @@ return ` <li class="post">
   }
 
   for (let likeEl of document.querySelectorAll(".like-button")) {
-    let a = likeEl.dataset.postId;
+  
     likeEl.addEventListener("click", () => {
       if (!getToken()) {
       alert("Лайкать посты могут только авторизованные пользователи!");
@@ -77,18 +77,27 @@ return ` <li class="post">
       });
     });
   }
+
 // Обработка клика по кнопке удалить пост
 
   for (let deleteEl of document.querySelectorAll(".trash-button")) {
-    let del = deleteEl.dataset.postId;
     deleteEl.addEventListener("click", () => {
+
       if (!getToken()) {
       alert("Удалять посты могут только авторизованные пользователи!");
       return;
       }
+      
+    //  if (`тут что-то`) {
+    //    alert ("Вы можете удалять только свои посты");
+    //    return;
+   //   }
+
+      else {
         goToPage(DELETE_PAGE, {
         postId: deleteEl.dataset.deleteId,
-      });
+      })
+    }
     });
   }
 

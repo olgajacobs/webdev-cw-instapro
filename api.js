@@ -4,8 +4,8 @@ const personalKey = "olya-jacobs";
 const baseHost = "https://webdev-hw-api.vercel.app";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
-export function getPosts({ token }) {
-  return fetch(postsHost, {
+export function getPosts({ token, id = "" }) {
+  return fetch(id ? (postsHost + "/user-posts" +id) : postsHost, {
     method: "GET",
     headers: {
       Authorization: token,
@@ -110,7 +110,13 @@ export function deletePost({ token, id }) {
     else if (response.status === 401) {
         throw new Error("Нет авторизации");
       }
+    else {
+        alert(`Ошибка при удалении ID: ${id}`);
+        throw new Error('Вы не можете удалить чужой пост');
+      }
     })
+
+   
 }
 
 

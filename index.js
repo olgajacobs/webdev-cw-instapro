@@ -87,12 +87,7 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === CHANGE_LIKE_PAGE) {
-      // Изменение лайка текущего поста
-      // console.log("Открываю страницу пользователя: ", data.postId);
 
-      // page = LOADING_PAGE;
-      // renderApp();
-      //Получаем индекс текущего поста
       const currentPostIndex = posts.findIndex(post => post.id === data.postId);
 
       return changeLike({ token: getToken(), id: data.postId, isLike: posts[currentPostIndex].isLiked })
@@ -109,8 +104,6 @@ export const goToPage = (newPage, data) => {
       } 
 
     if (newPage === DELETE_PAGE) {
-
-    const postIndex = posts.findIndex(post => post.id === data.postId);
     
       return deletePost({ token: getToken(), id: data.postId})
         .then((newPosts) => {
@@ -170,10 +163,8 @@ const renderApp = () => {
       appEl,
     });
   }
-
+   
   if (page === USER_POSTS_PAGE) {
-    // TODO: реализовать страницу фотографию пользвателя
-   // appEl.innerHTML = "Здесь будет страница фотографий пользователя";
    return renderPostsPageComponent({
     appEl,
   });

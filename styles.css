@@ -216,4 +216,19 @@
   .post-image-container {
     height: 375px;
   }
+
+  .post-image {
+    max-width: 375px;
+}
+}
+
+@media (max-width: 375px) {
+
+  .post-image-container {
+    height: 300px;
+  }
+
+  .post-image {
+    max-width: 300px;
+}
 }

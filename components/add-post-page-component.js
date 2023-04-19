@@ -1,6 +1,6 @@
 import { uploadPost, deletePost } from "../api.js";
 import { getToken } from "../index.js";
-import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
+//import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { renderUploadImageComponent } from "./upload-image-component.js";
 
