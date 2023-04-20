@@ -64,7 +64,6 @@ return ` <li class="post">
       });
     });
   }
-
   for (let likeEl of document.querySelectorAll(".like-button")) {
   
     likeEl.addEventListener("click", () => {
@@ -88,7 +87,7 @@ return ` <li class="post">
       return;
       }
       
-    //  if (`тут что-то`) {
+    //  if (что-то тут) {
     //    alert ("Вы можете удалять только свои посты");
     //    return;
    //   }

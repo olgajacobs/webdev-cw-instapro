@@ -71,19 +71,22 @@ export const goToPage = (newPage, data) => {
     }
 
     if (newPage === USER_POSTS_PAGE) {
+      // TODO: реализовать получение постов юзера из API
+      console.log("Открываю страницу пользователя: ", data.userId);
+
       page = LOADING_PAGE;
       renderApp();
 
-      return getPosts({ token: getToken(), id: data.userID })
-      .then((newPosts) => {
-        page = USER_POSTS_PAGE;
-        posts = newPosts;
-        renderApp();
-      })
-      .catch((error) => {
-        console.error(error);
-        goToPage(POSTS_PAGE);
-      });
+      return getPosts({ token: getToken(), id: data.userId })
+        .then((newPosts) => {
+          page = USER_POSTS_PAGE;
+          posts = newPosts;
+          renderApp();
+        })
+        .catch((error) => {
+          console.error(error);
+          goToPage(POSTS_PAGE);
+        });
     }
 
     if (newPage === CHANGE_LIKE_PAGE) {

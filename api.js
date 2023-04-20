@@ -5,7 +5,7 @@ const baseHost = "https://webdev-hw-api.vercel.app";
 const postsHost = `${baseHost}/api/v1/${personalKey}/instapro`;
 
 export function getPosts({ token, id = "" }) {
-  return fetch(id ? (postsHost + "/user-posts" +id) : postsHost, {
+  return fetch(id ? (postsHost + "/user-posts/" +id) : postsHost, {
     method: "GET",
     headers: {
       Authorization: token,
@@ -50,8 +50,9 @@ export function loginUser({ login, password }) {
     }),
   }).then((response) => {
     if (response.status === 400) {
+      alert("Неверный логин или пароль!");   
       throw new Error("Неверный логин или пароль");
-    }
+ }
     return response.json();
   });
 }
