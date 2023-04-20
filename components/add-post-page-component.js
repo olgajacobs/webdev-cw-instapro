@@ -1,4 +1,4 @@
-import { uploadPost, deletePost } from "../api.js";
+import { uploadPost } from "../api.js";
 import { getToken } from "../index.js";
 //import { POSTS_PAGE, USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
@@ -71,7 +71,6 @@ export function renderAddPostPageComponent({ appEl, onAddPostClick }) {
 
   };
  
-
   render(); 
 }
 
