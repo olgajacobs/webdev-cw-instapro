@@ -66,13 +66,22 @@ export function uploadImage({ file }) {
     method: "POST",
     body: data,
   }).then((response) => {
-    return response.json();
+    if (response.status === 201) {
+      return response.json();
+    } else if (response.status === 401) {
+      console.log("Ошибка авторизации");
+      throw new Error("Нет авторизации");
+    } else {
+      console.log("Прочие ошибки");
+      throw new Error("Прочие ошибки записи поста");
+    }
   });
 }
 
+  // Запись нового поста
 
 export function uploadPost({ token, description, imageUrl }) {
-  // Запись нового поста
+
   return fetch(postsHost, {
     method: "POST",
     headers: {
