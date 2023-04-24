@@ -1,16 +1,10 @@
 import { USER_POSTS_PAGE, CHANGE_LIKE_PAGE, DELETE_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
-import { posts, goToPage, getToken,getId } from "../index.js";
+import { posts, goToPage, getToken, getId } from "../index.js";
 import { formatDistanceToNow } from "date-fns"
 
 export function renderPostsPageComponent({ appEl }) {
-  // TODO: реализовать рендер постов из api
-  console.log("Актуальный список постов:", posts);
 
-  /**
-   * TODO: чтобы отформатировать дату создания поста в виде "19 минут назад"
-   * можно использовать https://date-fns.org/v2.29.3/docs/formatDistanceToNow
-   */
   const appHtml = `
   <div class="page-container">
     <div class="header-container"></div>
@@ -87,7 +81,7 @@ for (let deleteEl of document.querySelectorAll(".trash-button")) {
     alert("Удалять посты могут только авторизованные пользователи!");
     return;
     }
-  
+ 
    if (getId() !== deleteEl.dataset.userDeleteId) {
      alert ("Вы можете удалять только свои посты");
      return;
